@@ -9,6 +9,18 @@ import (
 	"strings"
 )
 
+func padLeft(str string, count int, filler string) string {
+	strLength := len(str)
+	if strLength >= count {
+		return str
+	}
+
+	times := count - strLength
+
+	fillerFix := strings.Repeat(filler, times)[0:times]
+	return fillerFix + str
+}
+
 func rgbToHex(rgb string) string {
 	values := strings.Split(rgb, ",")
 
@@ -18,7 +30,7 @@ func rgbToHex(rgb string) string {
 		if err != nil {
 			log.Fatal(err)
 		}
-		hexOutPut += strconv.FormatInt(int64(dec), 16)
+		hexOutPut += padLeft(strconv.FormatInt(int64(dec), 16), 2, "0")
 	}
 	return hexOutPut
 }
